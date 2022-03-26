@@ -14,7 +14,6 @@ class _HomeScreenState extends State<HomeScreen> {
     //   // title: 'Breakdown of debts'
     // ),
   ];
-
   final ScrollController _sc = ScrollController();
   final TextEditingController _tc = TextEditingController();
   final FocusNode _fn = FocusNode();
@@ -40,20 +39,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       children: [
                         for (Todo todo in todos)
-                        
                           Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: ListTile(
                                 tileColor: Colors.white,
                                 leading: Text(todo.id.toString()),
-                                title: Text(todo.details.split(" ")[0] + " " + todo.details.split(" ")[1]),
-                                subtitle: Text(todo.created.toString()),
+                                title: Text(todo.created.toString()),
+                                subtitle: Text(todo.details),
                                 trailing: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     IconButton(
                                       icon: const Icon(Icons.edit),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        editTodo(todo.details, todo.id);
+                                      },
                                     ),
                                     IconButton(
                                       icon: const Icon(Icons.delete),
@@ -71,7 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 TextFormField(
                     controller: _tc,
                     focusNode: _fn,
+                    maxLines: 5,
                     decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
                         hintText: "Enter description..",
                         focusedBorder: const OutlineInputBorder(),
                         enabledBorder: const OutlineInputBorder(),
@@ -90,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               addTodo(_tc.text);
                               _tc.text = '';
                               _fn.unfocus();
-                            }))),
+                            })))
               ],
             )),
       ),
@@ -117,19 +120,49 @@ class _HomeScreenState extends State<HomeScreen> {
       for (int i = 0; i < todos.length; i++) {
         if (index == todos[i].id) {
           todos.removeAt(i);
+          setState(() {});
         }
       }
     }
   }
-  // editTodo(String details){
-  //   if(todos.isNotEmpty){
-  //     for(int i=0;i<todos.length; i++){
-  //       if(index == todos[i].id){
-  //         todos.removeAt(i);
-  //       }
-  //     }
-  //   }
-  // }
+
+  editTodo(String details, int index) {
+    _tc.text = details;
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Edit text"),
+        content: TextFormField(
+          // decoration: const InputDecoration(labelText: "Enter text"),
+          maxLines: 5,
+          controller: _tc,
+          focusNode: _fn,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              if (mounted) {
+                if (todos.isNotEmpty) {
+                  for (int i = 0; i < todos.length; i++) {
+                    if (index == todos[i].id) {
+                      setState(() {
+                        todos[i].details = _tc.text;
+                        _tc.text = '';
+                      });
+                    }
+                  }
+                }
+              }
+              Navigator.of(context).pop();
+              _fn.unfocus();
+            },
+            child: const Text('Edit'),
+          )
+        ],
+      ),
+    );
+  }
 }
 
 class Todo {
