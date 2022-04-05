@@ -101,52 +101,6 @@ class TodoCard extends StatelessWidget {
             ),
           ),
         ),
-        // Container(
-        //   margin: const EdgeInsets.fromLTRB(0, 10, 5, 0),
-        //   decoration: BoxDecoration(
-        //       color: Colors.white,
-        //       borderRadius: BorderRadius.circular(16),
-        //       boxShadow: [
-        //         BoxShadow(
-        //           color: Colors.grey.withOpacity(0.5),
-        //           spreadRadius: 2,
-        //           blurRadius: 6,
-        //           offset: const Offset(0, 3), // changes position of shadow
-        //         ),
-        //       ]),
-        //   child: IconSlideAction(
-        //     caption: 'Edit',
-        //     // color: Colors.red,
-        //     icon: Icons.edit,
-        //     onTap: onClick,
-        //     closeOnTap: true,
-        //   ),
-        // ),
-        // Container(
-        //   margin: const EdgeInsets.fromLTRB(0, 10, 5, 0),
-        //   decoration: BoxDecoration(
-        //       color: Colors.white,
-        //       borderRadius: const BorderRadius.only(
-        //               topLeft: Radius.circular(16),
-        //               topRight: Radius.circular(16),
-        //               bottomLeft: Radius.circular(16),
-        //               bottomRight: Radius.circular(16)),
-        //           boxShadow: [
-        //             BoxShadow(
-        //               color: Colors.grey.withOpacity(0.5),
-        //               spreadRadius: 2,
-        //               blurRadius: 6,
-        //               offset: const Offset(0, 3), // changes position of shadow
-        //             ),
-        //           ]),
-        //   child: IconSlideAction(
-        //     caption: 'Done',
-        //     // color: Colors.blue,
-        //     icon: Icons.check,
-        //     onTap: onTap,
-        //     closeOnTap: false,
-        //   ),
-        // )
       ],
       child: Container(
         margin: margin,
