@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/src/controllers/todo_controller.dart';
+import 'package:todo_app/src/screens/login/auth_controller.dart';
 // import 'package:todo_app/src/screens/todos/home.dart';
 import 'package:todo_app/src/screens/todos/todo_model.dart';
 import 'package:todo_app/src/screens/todos/widgets/input_widget.dart';
 import 'package:todo_app/src/screens/todos/widgets/todo_card.dart';
 
 class TodoHomeScreen extends StatefulWidget {
-  const TodoHomeScreen({Key? key}) : super(key: key);
+  const TodoHomeScreen(AuthController authController, {Key? key}) : super(key: key);
 
   @override
   State<TodoHomeScreen> createState() => _TodoHomeScreenState();
