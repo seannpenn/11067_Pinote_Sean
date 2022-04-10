@@ -1,13 +1,18 @@
 import 'package:simple_moment/simple_moment.dart';
 
 class Todo {
-  String details;
+  late String details;
   late DateTime created;
-  int id;
   bool done = false;
 
-  Todo({this.details = '', DateTime? created, this.id = 0}) {
+  Todo({this.details = '', DateTime? created}) {
     created == null ? this.created = DateTime.now() : this.created = created;
+  }
+
+  Todo.fromJson(Map<String,dynamic> json){
+    details = json['details']?? '';
+    created = json['created']?? DateTime.now();
+    done = json['done'] ?? done;
   }
 
   String get parsedDate{
@@ -21,5 +26,19 @@ class Todo {
 
   toggleDone(){
     done = !done;
+  }
+
+  Map<String, dynamic> get json =>{
+    'details': details,
+    'created': created,
+    'done':done,
+  };
+
+  Map<String,dynamic> toJson(){
+    return json;
+  }
+
+  log(){
+    print(json);
   }
 }

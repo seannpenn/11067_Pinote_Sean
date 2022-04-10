@@ -17,6 +17,18 @@ class _TodoHomeScreenState extends State<TodoHomeScreen> {
   final TodoController _todoController = TodoController();
   final ScrollController _sc = ScrollController();
   bool _confirm = false;
+
+  @override
+  void initState() {
+    _todoController.addListener(newTodoListener);
+    super.initState();
+  }
+
+  newTodoListener(){
+    print('Hey I heard that you added a todo!');
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,9 +106,9 @@ class _TodoHomeScreenState extends State<TodoHomeScreen> {
                                 },
                                 onErase: () {
                                   confirmDeleteDialog(context, todo);
-                                  if(_confirm){
-                                  _todoController.removeTodo(todo);
-                                  }
+                                  // if(_confirm){
+                                  // _todoController.removeTodo(todo);
+                                  // }
                                   
                                 },
                                 onClick: () {
@@ -173,7 +185,9 @@ class _TodoHomeScreenState extends State<TodoHomeScreen> {
                     setState(() {
                       _confirm = true;
                     });
-
+                    if(_confirm){
+                      _todoController.removeTodo(todo);
+                    }
                     // Close the dialog
                     Navigator.of(context).pop();
                   },
@@ -181,7 +195,11 @@ class _TodoHomeScreenState extends State<TodoHomeScreen> {
               TextButton(
                   onPressed: () {
                     // Close the dialog
+                    setState(() {
+                      _confirm = false;
+                    });
                     Navigator.of(context).pop();
+
                   },
                   child: const Text('No'))
             ],
