@@ -8,20 +8,23 @@ import 'package:todo_app/src/screens/todos/widgets/input_widget.dart';
 import 'package:todo_app/src/screens/todos/widgets/todo_card.dart';
 
 class TodoHomeScreen extends StatefulWidget {
-  const TodoHomeScreen(AuthController authController, {Key? key}) : super(key: key);
+  final AuthController auth;
+  const TodoHomeScreen(this.auth, {Key? key}) : super(key: key);
 
   @override
   State<TodoHomeScreen> createState() => _TodoHomeScreenState();
 }
 
 class _TodoHomeScreenState extends State<TodoHomeScreen> {
-  final TodoController _todoController = TodoController();
+  late TodoController _todoController;
   final ScrollController _sc = ScrollController();
+  AuthController get _auth => widget.auth;
   bool _confirm = false;
 
   @override
   void initState() {
-    _todoController.addListener(newTodoListener);
+    // _todoController.addListener(newTodoListener);
+    _todoController = TodoController(_auth.currentUser!.username);
     super.initState();
   }
 
@@ -36,6 +39,12 @@ class _TodoHomeScreenState extends State<TodoHomeScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Todos App'),
+
+        actions: [
+          IconButton(onPressed: (){
+            _auth.logout();
+          }, icon: const Icon(Icons.logout))
+        ],
       ),
       floatingActionButton: SizedBox(
         height: 60,
@@ -71,32 +80,6 @@ class _TodoHomeScreenState extends State<TodoHomeScreen> {
                         controller: _sc,
                         child: Column(
                           children: [
-                            // for (Todo todo in _todoController.data)
-                            // Padding(
-                            //   padding: const EdgeInsets.all(2.0),
-                            //   child: ListTile(
-                            //       tileColor: Colors.white,
-                            //       leading: Text(todo.id.toString()),
-                            //       title: Text(todo.created.toString()),
-                            //       subtitle: Text(todo.details),
-                            //       trailing: Row(
-                            //         mainAxisSize: MainAxisSize.min,
-                            //         children: [
-                            //           IconButton(
-                            //             icon: const Icon(Icons.edit),
-                            //             onPressed: () {
-                            //               // editTodo(todo.details, todo.id);
-                            //             },
-                            //           ),
-                            //           IconButton(
-                            //             icon: const Icon(Icons.delete),
-                            //             onPressed: () {
-                            //               // removeTodo(todo.id);
-                            //             },
-                            //           ),
-                            //         ],
-                            //       )),
-                            // )
 
                             for (Todo todo in _todoController.data)
                               TodoCard(

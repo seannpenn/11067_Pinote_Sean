@@ -11,6 +11,7 @@ class TodoCard extends StatelessWidget {
   final Function()? onClick;
   final EdgeInsets? margin;
   final ScrollController _sc = ScrollController();
+  final SlidableController _slideC = SlidableController();
 
   TodoCard(
       {required this.todo,
@@ -26,31 +27,14 @@ class TodoCard extends StatelessWidget {
     return Slidable(
       actionPane: const SlidableStrechActionPane(),
       actionExtentRatio: 0.25,
+      // controller: _slideC,
+      // dismissal: SlidableDismissal(
+      //   child: const SlidableDrawerDismissal(),
+      //   onDismissed: (actionType){
+
+      //   },
+      // ),
       actions: <Widget>[
-        // GestureDetector(
-        //   onTap: onTap,
-        //   child: Container(
-        //     margin: const EdgeInsets.fromLTRB(0, 10, 5, 0),
-        //     width: 25,
-        //     height: 100,
-        //     decoration: BoxDecoration(
-        //         color: Colors.white,
-        //         borderRadius: BorderRadius.circular(16),
-        //         boxShadow: [
-        //           BoxShadow(
-        //             color: Colors.grey.withOpacity(0.5),
-        //             spreadRadius: 2,
-        //             blurRadius: 6,
-        //             offset: const Offset(0, 3), // changes position of shadow
-        //           ),
-        //         ]),
-        //     child: const Icon(
-        //       Icons.check,
-        //       color: Colors.blueAccent,
-        //       size: 30,
-        //     ),
-        //   ),
-        // ),
         GestureDetector(
           onTap: onClick,
           child: Container(

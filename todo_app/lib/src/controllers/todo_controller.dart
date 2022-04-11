@@ -4,10 +4,11 @@ import '../screens/todos/todo_model.dart';
 
 class TodoController with ChangeNotifier{
   final Box todoCache = Hive.box('todos');
+  late String currentUser;
   List<Todo> data = [];
 
-  TodoController(){
-    List result = todoCache.get('todos', defaultValue: []);
+  TodoController(this.currentUser){
+    List result = todoCache.get(currentUser, defaultValue: []);
   print(result);
     for(var entry in result){
       print(entry);
@@ -44,7 +45,7 @@ class TodoController with ChangeNotifier{
     }
 
     print(dataToStore);
-    todoCache.put('todos', dataToStore);
+    todoCache.put(currentUser, dataToStore);
     notifyListeners();
   }
 }
