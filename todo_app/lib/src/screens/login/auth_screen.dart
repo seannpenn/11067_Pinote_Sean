@@ -47,135 +47,176 @@ class _AuthScreenState extends State<AuthScreen> {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              child: Form(
-                key: _formKey,
-                onChanged: () {
-                  _formKey.currentState?.validate();
-                  if (mounted) {
-                    setState(() {});
-                  }
-                },
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Center(
-                      child: Text(
-                        prompts,
-                        textAlign: TextAlign.justify,
-                      ),
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          hintText: 'Username',
-                          prefixIcon: Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: Icon(
-                              Icons.person,
-                              color: _unCon.text.isEmpty
-                                  ? Colors.black
-                                  : Colors.teal[400],
-                            ),
-                          )),
-                      controller: _unCon,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your username';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: 'Password',
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: Icon(
-                            Icons.lock,
-                            color: _passCon.text.isEmpty
-                                ? Colors.black
-                                : Colors.teal[400],
+            child: Column(
+              children: [
+                const Text(
+                  'Todo app',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Form(
+                    key: _formKey,
+                    onChanged: () {
+                      _formKey.currentState?.validate();
+                      if (mounted) {
+                        setState(() {});
+                      }
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Center(
+                          child: Text(
+                            prompts,
+                            textAlign: TextAlign.justify,
                           ),
                         ),
-                      ),
-                      controller: _passCon,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        return null;
-                      },
-                    ),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 32),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SizedBox(
-                              width: 100,
-                              child: ElevatedButton(
-                                onPressed:
-                                    (_formKey.currentState?.validate() ?? false)
-                                        ? () {
-                                            String result = _auth.register(
-                                                _unCon.text, _passCon.text);
-                                            setState(() {
-                                              prompts = result;
-                                            });
-                                          }
-                                        : null,
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    primary:
-                                        (_formKey.currentState?.validate() ??
-                                                false)
-                                            ? Colors.teal[400]
-                                            : Colors.grey,
-                                    padding: const EdgeInsets.all(15)),
-                                child: const Text('Register'),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.fromLTRB(
+                                20.0, 15.0, 20.0, 15.0),
+                            hintText: "Username",
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: Icon(
+                                Icons.person,
+                                color: _unCon.text.isEmpty
+                                    ? Colors.black
+                                    : Colors.teal[400],
                               ),
                             ),
-                            SizedBox(
-                              width: 100,
-                              child: ElevatedButton(
-                                onPressed:
-                                    (_formKey.currentState?.validate() ?? false)
-                                        ? () {
-                                            bool result = _auth.login(
-                                                _unCon.text, _passCon.text);
-                                            if (!result) {
-                                              setState(() {
-                                                prompts =
-                                                    'Error logging in, username or password may be incorrect or the user has not been registered yet.';
-                                              });
-                                            }
-                                          }
-                                        : null,
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    primary:
-                                        (_formKey.currentState?.validate() ??
-                                                false)
-                                            ? Colors.teal[400]
-                                            : Colors.grey,
-                                    padding: const EdgeInsets.all(15)),
-                                child: const Text('Log in'),
-                              ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                              borderSide: const BorderSide(width: 2.0),
                             ),
-                          ],
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFF26A69A), width: 2.0),
+                              borderRadius: BorderRadius.circular(32.0),
+                            ),
+                          ),
+                          controller: _unCon,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your username';
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                    )
-                  ],
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        TextFormField(
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.fromLTRB(
+                                20.0, 15.0, 20.0, 15.0),
+                            hintText: 'Password',
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: Icon(
+                                Icons.lock,
+                                color: _passCon.text.isEmpty
+                                    ? Colors.black
+                                    : Colors.teal[400],
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                              borderSide: const BorderSide(width: 2.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color(0xFF26A69A), width: 2.0),
+                              borderRadius: BorderRadius.circular(32.0),
+                            ),
+                          ),
+                          controller: _passCon,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
+                        ),
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 32),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                SizedBox(
+                                  width: 100,
+                                  child: ElevatedButton(
+                                    onPressed:
+                                        (_formKey.currentState?.validate() ??
+                                                false)
+                                            ? () {
+                                                String result = _auth.register(
+                                                    _unCon.text, _passCon.text);
+                                                setState(() {
+                                                  prompts = result;
+                                                });
+                                              }
+                                            : null,
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        primary: (_formKey.currentState
+                                                    ?.validate() ??
+                                                false)
+                                            ? Colors.teal[400]
+                                            : Colors.grey,
+                                        padding: const EdgeInsets.all(15)),
+                                    child: const Text('Register'),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 100,
+                                  child: ElevatedButton(
+                                    onPressed:
+                                        (_formKey.currentState?.validate() ??
+                                                false)
+                                            ? () {
+                                                bool result = _auth.login(
+                                                    _unCon.text, _passCon.text);
+                                                if (!result) {
+                                                  setState(() {
+                                                    prompts =
+                                                        'Error logging in, username or password may be incorrect or the user has not been registered yet.';
+                                                  });
+                                                }
+                                              }
+                                            : null,
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        primary: (_formKey.currentState
+                                                    ?.validate() ??
+                                                false)
+                                            ? Colors.teal[400]
+                                            : Colors.grey,
+                                        padding: const EdgeInsets.all(15)),
+                                    child: const Text('Log in'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ),
