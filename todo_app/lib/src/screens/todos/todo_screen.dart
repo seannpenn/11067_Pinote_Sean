@@ -39,6 +39,7 @@ class _TodoHomeScreenState extends State<TodoHomeScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Todos App'),
+        backgroundColor: Colors.teal[400],
 
         actions: [
           IconButton(onPressed: (){
@@ -51,7 +52,7 @@ class _TodoHomeScreenState extends State<TodoHomeScreen> {
         width: 60,
         child: FloatingActionButton(
           // backgroundColor: const Color(0xFF303030),
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Colors.teal[400],
           child: const Icon(
             Icons.add,
             size: 30.0,

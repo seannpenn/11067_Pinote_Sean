@@ -40,10 +40,10 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
-        backgroundColor: const Color(0xFF303030),
+        title: const Center(child: Text('Login')),
+        backgroundColor: Colors.teal[400],
       ),
-      backgroundColor: Colors.grey[400],
+      // backgroundColor: Colors.grey[400],
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -67,7 +67,17 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(hintText: 'Username'),
+                      decoration: InputDecoration(
+                          hintText: 'Username',
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(0.0),
+                            child: Icon(
+                              Icons.person,
+                              color: _unCon.text.isEmpty
+                                  ? Colors.black
+                                  : Colors.teal[400],
+                            ),
+                          )),
                       controller: _unCon,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -78,8 +88,17 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                     TextFormField(
                       obscureText: true,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         hintText: 'Password',
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(0.0),
+                          child: Icon(
+                            Icons.lock,
+                            color: _passCon.text.isEmpty
+                                ? Colors.black
+                                : Colors.teal[400],
+                          ),
+                        ),
                       ),
                       controller: _passCon,
                       validator: (value) {
@@ -92,53 +111,63 @@ class _AuthScreenState extends State<AuthScreen> {
                     Flexible(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 32),
-                        child: Row(
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            ElevatedButton(
-                              onPressed:
-                                  (_formKey.currentState?.validate() ?? false)
-                                      ? () {
-                                          String result = _auth.register(
-                                              _unCon.text, _passCon.text);
-                                          setState(() {
-                                            prompts = result;
-                                          });
-                                        }
-                                      : null,
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                  ),
-                                  primary: (_formKey.currentState?.validate() ??
-                                          false)
-                                      ? const Color(0xFF303030)
-                                      : Colors.grey),
-                              child: const Text('Register'),
-                            ),
-                            ElevatedButton(
-                              onPressed:
-                                  (_formKey.currentState?.validate() ?? false)
-                                      ? () {
-                                          bool result = _auth.login(
-                                              _unCon.text, _passCon.text);
-                                          if (!result) {
+                            SizedBox(
+                              width: 100,
+                              child: ElevatedButton(
+                                onPressed:
+                                    (_formKey.currentState?.validate() ?? false)
+                                        ? () {
+                                            String result = _auth.register(
+                                                _unCon.text, _passCon.text);
                                             setState(() {
-                                              prompts =
-                                                  'Error logging in, username or password may be incorrect or the user has not been registered yet.';
+                                              prompts = result;
                                             });
                                           }
-                                        }
-                                      : null,
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                  ),
-                                  primary: (_formKey.currentState?.validate() ??
-                                          false)
-                                      ? const Color(0xFF303030)
-                                      : Colors.grey),
-                              child: const Text('Log in'),
+                                        : null,
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    primary:
+                                        (_formKey.currentState?.validate() ??
+                                                false)
+                                            ? Colors.teal[400]
+                                            : Colors.grey,
+                                    padding: const EdgeInsets.all(15)),
+                                child: const Text('Register'),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 100,
+                              child: ElevatedButton(
+                                onPressed:
+                                    (_formKey.currentState?.validate() ?? false)
+                                        ? () {
+                                            bool result = _auth.login(
+                                                _unCon.text, _passCon.text);
+                                            if (!result) {
+                                              setState(() {
+                                                prompts =
+                                                    'Error logging in, username or password may be incorrect or the user has not been registered yet.';
+                                              });
+                                            }
+                                          }
+                                        : null,
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    primary:
+                                        (_formKey.currentState?.validate() ??
+                                                false)
+                                            ? Colors.teal[400]
+                                            : Colors.grey,
+                                    padding: const EdgeInsets.all(15)),
+                                child: const Text('Log in'),
+                              ),
                             ),
                           ],
                         ),

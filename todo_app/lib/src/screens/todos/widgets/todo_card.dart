@@ -27,6 +27,8 @@ class TodoCard extends StatelessWidget {
     return Slidable(
       actionPane: const SlidableStrechActionPane(),
       actionExtentRatio: 0.25,
+      closeOnScroll: true,
+      enabled: true,
       // controller: _slideC,
       // dismissal: SlidableDismissal(
       //   child: const SlidableDrawerDismissal(),
@@ -54,8 +56,9 @@ class TodoCard extends StatelessWidget {
                   ),
                 ]),
             child: IconButton(
-              icon: const Icon(Icons.check),
-              color: Colors.blueAccent,
+              
+              icon: Icon( todo.done ? Icons.check_box_outlined: Icons.check_box_outline_blank),
+              color: Colors.teal[400],
               onPressed: onTap,
             ),
           ),
@@ -80,7 +83,7 @@ class TodoCard extends StatelessWidget {
                 ]),
             child: IconButton(
               icon: const Icon(Icons.edit),
-              color: Colors.blueAccent,
+              color: Colors.teal[400],
               onPressed: onClick,
             ),
           ),
@@ -96,12 +99,13 @@ class TodoCard extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.fromLTRB(16, 0, 0, 8),
               decoration: BoxDecoration(
-                  color: todo.done ? Colors.amber[100] : Colors.cyanAccent,
+                  color: todo.done ? Colors.grey[200] : Colors.white,
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(16),
                       topRight: Radius.circular(16),
                       bottomLeft: Radius.circular(16),
                       bottomRight: Radius.circular(16)),
+                      
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
@@ -124,6 +128,7 @@ class TodoCard extends StatelessWidget {
                       ),
                       IconButton(
                         padding: EdgeInsets.zero,
+                        color: Colors.teal[400],
                         icon: const Icon(Icons.close),
                         iconSize: 20,
                         onPressed: onErase,
